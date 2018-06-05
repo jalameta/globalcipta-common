@@ -1,6 +1,6 @@
 <?php
 
-namespace GlobalCipta\CommonRouting;
+namespace GlobalCipta\Common\Routing;
 
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 
