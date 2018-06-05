@@ -1,6 +1,6 @@
 <?php
 
-namespace GlobalCipta\CommonRouting;
+namespace GlobalCipta\Common\Routing;
 
 use RuntimeException;
 use GlobalCipta\Common\Contracts\Routing\Binder;
