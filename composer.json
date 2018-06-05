@@ -1,0 +1,34 @@
+{
+    "name": "globalcipta/common",
+    "description": "useful common classes for laravel project",
+    "keywords": [ "laravel" ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Rifki Alhuraibi",
+            "email": "veelasky@gmail.com"
+        }
+    ],
+    "require": {
+        "php" : ">=7.0.0",
+        "laravel/framework": "^5.5|^5.6",
+        "webpatser/laravel-uuid": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "GlobalCipta\\Common\\": "src"
+        }
+    },
+    "minimum-stability": "stable",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        },
+        "laravel" : {
+            "providers" : [
+                "GlobalCipta\\Common\\Routing\\RouteServiceProvider",
+                "GlobalCipta\\Common\\Menu\\MenuServiceProvider"
+            ]
+        }
+    }
+}
