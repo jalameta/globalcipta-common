@@ -58,14 +58,20 @@ class ErrorApiResponse implements ArrayAccess, JsonSerializable, Arrayable, Json
             self::AUTHENTICATION_FAILED,
             self::INSUFFICIENT_ACCOUNT_PERMISSIONS
         ],
-        404 => [],
+        404 => [
+            self::RESOURCE_NOT_FOUND
+        ],
         409 => [
-            self::ACCOUNT_ALREADY_EXISTS
+            self::ACCOUNT_ALREADY_EXISTS,
+            self::RESOURCE_ALREADY_EXISTS
         ],
         500 => [
-            self::INTERNAL_ERROR
+            self::INTERNAL_ERROR,
+            self::OPERATION_TIME_OUT
         ],
-        503 => []
+        503 => [
+            self::SERVER_BUSY
+        ]
     ];
 
     /**
