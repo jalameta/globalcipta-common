@@ -27,7 +27,8 @@
         "laravel" : {
             "providers" : [
                 "GlobalCipta\\Common\\Routing\\RouteServiceProvider",
-                "GlobalCipta\\Common\\Menu\\MenuServiceProvider"
+                "GlobalCipta\\Common\\Menu\\MenuServiceProvider",
+                "GlobalCipta\\Common\\Response\\ResponseServiceProvider"
             ]
         }
     }
