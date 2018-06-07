@@ -2,6 +2,7 @@
 
 namespace GlobalCipta\Common\Response;
 
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Routing\ResponseFactory;
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 
@@ -21,7 +22,19 @@ class ResponseServiceProvider extends LaravelServiceProvider
      */
     public function boot(ResponseFactory $factory)
     {
+        $factory->macro('errorApi', function (ErrorApiResponse $error) use ($factory) {
+            return $factory->make([
+                'error' => $error->toArray()
+            ], $error->getHttpStatus(), [
+                'Content-Type' => 'application/json'
+            ]);
+        });
 
+        $factory->make('api', function(Arrayable $data) use ($factory) {
+            return $factory->make($data->toArray(), 200, [
+                'Content-Type' => 'application/json'
+            ]);
+        });
     }
 
     /**
