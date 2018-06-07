@@ -30,7 +30,7 @@ class ResponseServiceProvider extends LaravelServiceProvider
             ]);
         });
 
-        $factory->make('api', function(Arrayable $data) use ($factory) {
+        $factory->macro('api', function(Arrayable $data) use ($factory) {
             return $factory->make($data->toArray(), 200, [
                 'Content-Type' => 'application/json'
             ]);
