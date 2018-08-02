@@ -67,7 +67,9 @@ abstract class BaseJob
      */
     public function __construct(array $inputs = [])
     {
-        $this->inputs = $inputs;
+        $request = app('request');
+        $request->merge($inputs);
+        $this->inputs = $request->all();
     }
 
     /**
