@@ -40,13 +40,6 @@ abstract class BaseJob
     protected $callbacks = [];
 
     /**
-     * Http Request instance.
-     *
-     * @var \Illuminate\Http\Request
-     */
-    protected $request;
-
-    /**
      * Original input data.
      *
      * @var array
@@ -59,13 +52,6 @@ abstract class BaseJob
      * @var array
      */
     protected $rules = [];
-
-    /**
-     * Validation factory instance.
-     *
-     * @var \Illuminate\Validation\Factory
-     */
-    protected $validation;
 
     /**
      * The default error bag.
@@ -82,8 +68,6 @@ abstract class BaseJob
     public function __construct(array $inputs = [])
     {
         $this->inputs = $inputs;
-        $this->request = app('request');
-        $this->request->merge($inputs);
     }
 
     /**
@@ -297,5 +281,29 @@ abstract class BaseJob
     protected function errorBag()
     {
         return $this->validatesRequestErrorBag ?: 'default';
+    }
+
+    /**
+     * Get dynamic property handler
+     *
+     * @return mixed
+     */
+    public function __get($name)
+    {
+        switch($name)
+        {
+            case 'request':
+                $request = app('request');
+                $request->merge($this->inputs);
+
+                return $request;
+                break;
+            case 'validation';
+                return app('validator');
+                break;
+            default:
+                return null;
+                break;
+        }
     }
 }
