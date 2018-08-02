@@ -54,6 +54,14 @@ abstract class BaseJob
     protected $rules = [];
 
     /**
+     * Custom validation error messages.
+     *
+     * @var array
+     */
+    protected $messages = [];
+
+
+    /**
      * The default error bag.
      *
      * @var string
@@ -181,7 +189,7 @@ abstract class BaseJob
      */
     public function validate()
     {
-        $validator = $this->getValidationFactory()->make($this->request->all(), $this->getValidationRules());
+        $validator = $this->getValidationFactory()->make($this->request->all(), $this->getValidationRules(), $this->getCustomValidationErrorMessages());
 
         if ($validator->fails()) {
             $this->abort();
@@ -211,6 +219,16 @@ abstract class BaseJob
     {
         return (property_exists($this, 'rules')) ? $this->rules : [];
     }
+
+    /**
+     * Get custom ValidationError Messages
+     * @return array
+     */
+    public function getCustomValidationErrorMessages()
+    {
+        return (property_exists($this, 'messages')) ? $this->messages : [];
+    }
+
 
     /**
      * Fire all callbacks registered on the callbacks array.
