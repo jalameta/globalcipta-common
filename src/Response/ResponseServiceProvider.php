@@ -35,6 +35,8 @@ class ResponseServiceProvider extends LaravelServiceProvider
                 'Content-Type' => 'application/json'
             ]);
         });
+
+        require_once __DIR__ . '/helpers.php';
     }
 
     /**
