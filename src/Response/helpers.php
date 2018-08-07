@@ -4,11 +4,11 @@ if (! function_exists('api')) {
     /**
      * Api response helper
      *
-     * @param \Illuminate\Contracts\Support\Arrayable $data
+     * @param $data
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    function api(\Illuminate\Contracts\Support\Arrayable $data)
+    function api($data)
     {
         return response()->api($data);
     }

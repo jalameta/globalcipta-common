@@ -2,8 +2,8 @@
 
 namespace GlobalCipta\Common\Response;
 
-use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Routing\ResponseFactory;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 
 /**
@@ -30,8 +30,11 @@ class ResponseServiceProvider extends LaravelServiceProvider
             ]);
         });
 
-        $factory->macro('api', function(Arrayable $data) use ($factory) {
-            return $factory->make($data->toArray(), 200, [
+        $factory->macro('api', function($data) use ($factory) {
+            if ($data instanceof Arrayable)
+                $data = $data->toArray();
+
+            return $factory->make($data, 200, [
                 'Content-Type' => 'application/json'
             ]);
         });
