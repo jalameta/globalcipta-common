@@ -53,7 +53,9 @@ trait MetadataAble
 
                 if (isset($this->casts[$key])) {$type = $this->casts[$key];}
 
-                $this->{$this->getMetadataRelationshipName()}()->create([
+                $this->{$this->getMetadataRelationshipName()}()->updateOrCreate([
+                    'key' => $key
+                ], [
                     'key' => $key,
                     'value' => $properties,
                     'type' => $type
