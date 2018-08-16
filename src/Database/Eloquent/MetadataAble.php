@@ -43,10 +43,9 @@ trait MetadataAble
      */
     public function savingMetadataAttributes()
     {
-        $excluded = ['_csrf'];
+        $default_excluded = ['_token'];
 
-        $excluded = array_merge($this->fillable, $excluded);
-        $properties = request()->except($excluded);
+        $properties = request()->except(array_merge(array_keys($this->attributes), $default_excluded));
 
         if ($this->hasMetadata()) {
             foreach ($properties as $key => $property) {
