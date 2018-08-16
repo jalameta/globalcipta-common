@@ -20,6 +20,9 @@ use Illuminate\Validation\Factory as ValidationFactory;
  * Base Job/Command Bus.
  *
  * @author      veelasky <veelasky@gmail.com>
+ *
+ * @property \Illuminate\Http\Request $request
+ * @property \Illuminate\Validation\Factory $validation
  */
 abstract class BaseJob
 {
