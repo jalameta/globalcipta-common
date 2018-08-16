@@ -1,6 +1,6 @@
 <?php
 
-namespace Maclev\Core\MetaData\Eloquent;
+namespace GlobalCipta\Common\Database\Eloquent;
 
 use Carbon\Carbon;
 use DateTime;

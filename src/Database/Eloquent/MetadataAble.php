@@ -1,6 +1,7 @@
 <?php
 
-namespace Maclev\Core\MetaData\Eloquent;
+namespace GlobalCipta\Common\Database\Eloquent;
+
 
 use Illuminate\Database\Eloquent\Model;
 
