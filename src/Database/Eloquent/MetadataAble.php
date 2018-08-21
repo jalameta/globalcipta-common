@@ -45,6 +45,10 @@ trait MetadataAble
     {
         $default_excluded = ['_token'];
 
+        if (property_exists($this, 'metadataIgnore') && count($this->metadataIgnore) > 0) {
+            array_push($default_excluded, ...$this->metadataIgnore);
+        }
+        
         $properties = request()->except(array_merge(array_keys($this->attributes), $default_excluded));
 
         if ($this->hasMetadata()) {
