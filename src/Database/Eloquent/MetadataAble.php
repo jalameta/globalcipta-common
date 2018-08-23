@@ -61,7 +61,7 @@ trait MetadataAble
                     'key' => $key
                 ], [
                     'key' => $key,
-                    'value' => $properties,
+                    'value' => $property,
                     'type' => $type
                 ]);
             }
