@@ -20,7 +20,7 @@ class CreateSystemLogsTable extends Migration {
         Schema::create('system_logs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('env');
-            $table->string('message', 500);
+            $table->longText('message');
             $table->enum('level', [
                 'DEBUG',
                 'INFO',
