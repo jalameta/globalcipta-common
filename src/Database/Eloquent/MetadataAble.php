@@ -143,4 +143,23 @@ trait MetadataAble
     {
         return (property_exists($this, 'metadataRelation')) ? $this->metadataRelation : 'metadata';
     }
+
+    /**
+     * Convert the model's attributes to an array.
+     *
+     * @return array
+     */
+    public function attributesToArray()
+    {
+        $attributes = parent::attributesToArray();
+
+        $metadata = $this->{$this->getMetadataRelationshipName()}()->get();
+
+        foreach ($metadata as $metadatum) {
+            $attributes[$metadatum->key] = $this->getMetadata($metadatum->key);
+        }
+
+        return $attributes;
+    }
+
 }
