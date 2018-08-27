@@ -2,7 +2,6 @@
 
 namespace GlobalCipta\Common\Database\Eloquent;
 
-
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -12,18 +11,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 trait MetadataAble
 {
-    /**
-     * The "booting" method of the model.
-     */
-    protected static function bootMetadataAble()
-    {
-        static::saved(function (Model $model) {
-            $model->savingMetadataAttributes();
-
-            return true;
-        });
-    }
-
     /**
      * Determine if this model has metadata relationship.
      *
@@ -48,21 +35,23 @@ trait MetadataAble
         if (property_exists($this, 'metadataIgnore') && count($this->metadataIgnore) > 0) {
             array_push($default_excluded, ...$this->metadataIgnore);
         }
-        
+
         $properties = request()->except(array_merge(array_keys($this->attributes), $default_excluded));
 
         if ($this->hasMetadata()) {
             foreach ($properties as $key => $property) {
                 $type = 'string';
 
-                if (isset($this->casts[$key])) {$type = $this->casts[$key];}
+                if (isset($this->casts[$key])) {
+                    $type = $this->casts[$key];
+                }
 
                 $this->{$this->getMetadataRelationshipName()}()->updateOrCreate([
-                    'key' => $key
+                    'key' => $key,
                 ], [
                     'key' => $key,
                     'value' => $property,
-                    'type' => $type
+                    'type' => $type,
                 ]);
             }
         }
@@ -126,7 +115,7 @@ trait MetadataAble
             empty($value)
             and $this->hasMetadata()
             and $this->getMetadataRelationshipName() != $key
-            and !array_key_exists($key, $this->attributes)
+            and ! array_key_exists($key, $this->attributes)
         ) {
             return $this->getMetadata($key);
         }
@@ -161,5 +150,15 @@ trait MetadataAble
 
         return $attributes;
     }
+    /**
+     * The "booting" method of the model.
+     */
+    protected static function bootMetadataAble()
+    {
+        static::saved(function (Model $model) {
+            $model->savingMetadataAttributes();
 
+            return true;
+        });
+    }
 }

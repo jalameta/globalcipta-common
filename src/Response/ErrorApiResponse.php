@@ -8,7 +8,7 @@ use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Arrayable;
 
 /**
- * Error response object
+ * Error response object.
  *
  * @author      veelasky <veelasky@gmail.com>
  */
@@ -26,7 +26,7 @@ class ErrorApiResponse implements ArrayAccess, JsonSerializable, Arrayable, Json
     const OPERATION_TIME_OUT = 'OPERATION_TIME_OUT';
 
     /**
-     * List of all status code messages
+     * List of all status code messages.
      *
      * @var array
      */
@@ -44,38 +44,38 @@ class ErrorApiResponse implements ArrayAccess, JsonSerializable, Arrayable, Json
     ];
 
     /**
-     * List of http code used by the status
+     * List of http code used by the status.
      *
      * @var array
      */
     protected $httpStatusCode = [
         304 => [],
         400 => [
-            self::INVALID_INPUT
+            self::INVALID_INPUT,
         ],
         403 => [
             self::ACCOUNT_IS_DISABLED,
             self::AUTHENTICATION_FAILED,
-            self::INSUFFICIENT_ACCOUNT_PERMISSIONS
+            self::INSUFFICIENT_ACCOUNT_PERMISSIONS,
         ],
         404 => [
-            self::RESOURCE_NOT_FOUND
+            self::RESOURCE_NOT_FOUND,
         ],
         409 => [
             self::ACCOUNT_ALREADY_EXISTS,
-            self::RESOURCE_ALREADY_EXISTS
+            self::RESOURCE_ALREADY_EXISTS,
         ],
         500 => [
             self::INTERNAL_ERROR,
-            self::OPERATION_TIME_OUT
+            self::OPERATION_TIME_OUT,
         ],
         503 => [
-            self::SERVER_BUSY
-        ]
+            self::SERVER_BUSY,
+        ],
     ];
 
     /**
-     * Base response format
+     * Base response format.
      *
      * @var array
      */
@@ -83,7 +83,7 @@ class ErrorApiResponse implements ArrayAccess, JsonSerializable, Arrayable, Json
         'status_code' => '',
         'http_status' => '',
         'message' => '',
-        'data' => null
+        'data' => null,
     ];
 
     /**
@@ -94,22 +94,23 @@ class ErrorApiResponse implements ArrayAccess, JsonSerializable, Arrayable, Json
      */
     public function __construct($statusCode, $data = null)
     {
-        if (array_key_exists($statusCode, $this->statusCode) === false)
-            throw new \RuntimeException("Invalid ErrorApiResponse status code");
+        if (array_key_exists($statusCode, $this->statusCode) === false) {
+            throw new \RuntimeException('Invalid ErrorApiResponse status code');
+        }
 
         $this->messages['status_code'] = $statusCode;
         $this->messages['data'] = $data;
         $this->messages['message'] = $this->statusCode[$statusCode];
 
-        foreach ($this->httpStatusCode as $httpStatus => $statuses)
-        {
-            if (in_array($statusCode, $statuses))
+        foreach ($this->httpStatusCode as $httpStatus => $statuses) {
+            if (in_array($statusCode, $statuses)) {
                 $this->messages['http_status'] = $httpStatus;
+            }
         }
     }
 
     /**
-     * Get error message
+     * Get error message.
      *
      * @return string
      */
@@ -119,9 +120,9 @@ class ErrorApiResponse implements ArrayAccess, JsonSerializable, Arrayable, Json
     }
 
     /**
-     * Get Http Status
+     * Get Http Status.
      *
-     * @return integer
+     * @return int
      */
     public function getHttpStatus()
     {
@@ -129,7 +130,7 @@ class ErrorApiResponse implements ArrayAccess, JsonSerializable, Arrayable, Json
     }
 
     /**
-     * Get error status code
+     * Get error status code.
      *
      * @return string
      */
@@ -139,7 +140,7 @@ class ErrorApiResponse implements ArrayAccess, JsonSerializable, Arrayable, Json
     }
 
     /**
-     * Get error data
+     * Get error data.
      *
      * @return mixed
      */
@@ -149,7 +150,7 @@ class ErrorApiResponse implements ArrayAccess, JsonSerializable, Arrayable, Json
     }
 
     /**
-     * Create new Error Api Response
+     * Create new Error Api Response.
      *
      * @param      $statusCode
      * @param null $data
@@ -160,7 +161,7 @@ class ErrorApiResponse implements ArrayAccess, JsonSerializable, Arrayable, Json
     {
         return new static([
             'status_code' => $statusCode,
-            'data' => $data
+            'data' => $data,
         ]);
     }
 
@@ -198,11 +199,11 @@ class ErrorApiResponse implements ArrayAccess, JsonSerializable, Arrayable, Json
 
 
     /**
-     * Whether an offset exists
+     * Whether an offset exists.
      *
      * @param mixed $offset
      *
-     * @return boolean
+     * @return bool
      */
     public function offsetExists($offset)
     {
@@ -210,7 +211,7 @@ class ErrorApiResponse implements ArrayAccess, JsonSerializable, Arrayable, Json
     }
 
     /**
-     * Offset to retrieve
+     * Offset to retrieve.
      *
      * @param mixed $offset
      *
@@ -222,7 +223,7 @@ class ErrorApiResponse implements ArrayAccess, JsonSerializable, Arrayable, Json
     }
 
     /**
-     * Offset to set
+     * Offset to set.
      *
      * @param mixed $offset
      * @param mixed
@@ -235,7 +236,7 @@ class ErrorApiResponse implements ArrayAccess, JsonSerializable, Arrayable, Json
     }
 
     /**
-     * Offset to unset
+     * Offset to unset.
      *
      * @param mixed $offset
      *

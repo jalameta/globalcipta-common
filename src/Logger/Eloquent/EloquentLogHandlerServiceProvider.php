@@ -5,7 +5,7 @@ namespace GlobalCipta\Common\Logger\Eloquent;
 use Illuminate\Support\ServiceProvider;
 
 /**
- * Eloquent Log Handler Service Provider
+ * Eloquent Log Handler Service Provider.
  *
  * @author      veelasky <veelasky@gmail.com>
  */
@@ -19,9 +19,8 @@ class EloquentLogHandlerServiceProvider extends ServiceProvider
     public function boot()
     {
         // make sure this process only run in console
-        if ($this->app->runningInConsole())
-        {
-            $this->loadMigrationsFrom(__DIR__ . '/../../../database/migrations/logger');
+        if ($this->app->runningInConsole()) {
+            $this->loadMigrationsFrom(__DIR__.'/../../../database/migrations/logger');
         }
     }
 
@@ -32,6 +31,5 @@ class EloquentLogHandlerServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
     }
 }

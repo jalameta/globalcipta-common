@@ -87,22 +87,22 @@ class Container extends Collection
     }
 
     /**
-     * Create new menu item separator
+     * Create new menu item separator.
      *
      * @param int $order
      * @param string $text
      *
      * @return \GlobalCipta\Common\Menu\Item
      */
-    public function addSeparator($order, $text=null)
+    public function addSeparator($order, $text = null)
     {
         $item = new Item([
             'is_separator' => true,
             'order' => $order,
-            'text' => $text
+            'text' => $text,
         ]);
 
-        $this->offsetSet('separator-' . $order, $item);
+        $this->offsetSet('separator-'.$order, $item);
 
         return $item;
     }

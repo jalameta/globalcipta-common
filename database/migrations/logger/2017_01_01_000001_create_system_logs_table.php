@@ -5,11 +5,12 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 /**
- * System Log database migration
+ * System Log database migration.
  *
  * @author      veelasky <veelasky@gmail.com>
  */
-class CreateSystemLogsTable extends Migration {
+class CreateSystemLogsTable extends Migration
+{
     /**
      * Run the migrations.
      *
@@ -29,7 +30,7 @@ class CreateSystemLogsTable extends Migration {
                 'ERROR',
                 'CRITICAL',
                 'ALERT',
-                'EMERGENCY'
+                'EMERGENCY',
             ])->default('INFO');
             $table->text('context');
             $table->text('extra');

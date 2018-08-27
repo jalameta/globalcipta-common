@@ -7,7 +7,7 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 
 /**
- * Response service provider
+ * Response service provider.
  *
  * @author      veelasky <veelasky@gmail.com>
  */
@@ -24,22 +24,23 @@ class ResponseServiceProvider extends LaravelServiceProvider
     {
         $factory->macro('errorApi', function (ErrorApiResponse $error) use ($factory) {
             return $factory->make([
-                'error' => $error->toArray()
+                'error' => $error->toArray(),
             ], $error->getHttpStatus(), [
-                'Content-Type' => 'application/json'
+                'Content-Type' => 'application/json',
             ]);
         });
 
-        $factory->macro('api', function($data) use ($factory) {
-            if ($data instanceof Arrayable)
+        $factory->macro('api', function ($data) use ($factory) {
+            if ($data instanceof Arrayable) {
                 $data = $data->toArray();
+            }
 
             return $factory->make($data, 200, [
-                'Content-Type' => 'application/json'
+                'Content-Type' => 'application/json',
             ]);
         });
 
-        require_once __DIR__ . '/helpers.php';
+        require_once __DIR__.'/helpers.php';
     }
 
     /**

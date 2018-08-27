@@ -103,6 +103,30 @@ abstract class BaseJob
     }
 
     /**
+     * Get dynamic property handler.
+     *
+     * @return mixed
+     */
+    public function __get($name)
+    {
+        switch ($name) {
+            case 'request':
+                $request = app('request');
+                $request->merge($this->inputs);
+
+                return $request;
+                break;
+            case 'validation';
+
+                return app('validator');
+                break;
+            default:
+                return;
+                break;
+        }
+    }
+
+    /**
      * Handle incoming job.
      *
      * @return $this
@@ -224,7 +248,7 @@ abstract class BaseJob
     }
 
     /**
-     * Get custom ValidationError Messages
+     * Get custom ValidationError Messages.
      * @return array
      */
     public function getCustomValidationErrorMessages()
@@ -304,29 +328,5 @@ abstract class BaseJob
     protected function errorBag()
     {
         return $this->validatesRequestErrorBag ?: 'default';
-    }
-
-    /**
-     * Get dynamic property handler
-     *
-     * @return mixed
-     */
-    public function __get($name)
-    {
-        switch($name)
-        {
-            case 'request':
-                $request = app('request');
-                $request->merge($this->inputs);
-
-                return $request;
-                break;
-            case 'validation';
-                return app('validator');
-                break;
-            default:
-                return null;
-                break;
-        }
     }
 }

@@ -2,8 +2,8 @@
 
 namespace GlobalCipta\Common\Database\Eloquent;
 
-use Carbon\Carbon;
 use DateTime;
+use Carbon\Carbon;
 
 /**
  * Metadata model.
@@ -12,18 +12,6 @@ use DateTime;
  */
 trait MetadataModel
 {
-    /**
-     * The "booting" method of the model.
-     */
-    protected static function bootMetadataModel()
-    {
-        static::saving(function ($metadata) {
-            $metadata->castValueColumnAttribute();
-
-            return true;
-        });
-    }
-
     /**
      * Get a plain attribute (not a relationship).
      *
@@ -109,7 +97,7 @@ trait MetadataModel
      */
     public function getKeyColumn()
     {
-        return property_exists($this, 'keyColumn') ?  $this->{'keyColumn'} : 'key';
+        return property_exists($this, 'keyColumn') ? $this->{'keyColumn'} : 'key';
     }
 
     /**
@@ -119,7 +107,7 @@ trait MetadataModel
      */
     public function getValueColumn()
     {
-        return (property_exists($this, 'valueColumn')) ? $this->{'valueColumn'}  : 'value';
+        return (property_exists($this, 'valueColumn')) ? $this->{'valueColumn'} : 'value';
     }
 
     /**
@@ -129,7 +117,7 @@ trait MetadataModel
      */
     public function getTypeColumn()
     {
-        return  (property_exists($this, 'typeColumn')) ?  $this->{'typeColumn'} : 'type';
+        return  (property_exists($this, 'typeColumn')) ? $this->{'typeColumn'} : 'type';
     }
 
     /**
@@ -140,5 +128,16 @@ trait MetadataModel
     public function isCastable()
     {
         return (property_exists($this, 'castable')) ? $this->{'castable'} : true;
+    }
+    /**
+     * The "booting" method of the model.
+     */
+    protected static function bootMetadataModel()
+    {
+        static::saving(function ($metadata) {
+            $metadata->castValueColumnAttribute();
+
+            return true;
+        });
     }
 }

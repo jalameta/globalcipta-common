@@ -2,7 +2,7 @@
 
 if (! function_exists('api')) {
     /**
-     * Api response helper
+     * Api response helper.
      *
      * @param $data
      *
@@ -16,7 +16,7 @@ if (! function_exists('api')) {
 
 if (! function_exists('errorApi')) {
     /**
-     * Error Api helper
+     * Error Api helper.
      *
      * @param \GlobalCipta\Common\Response\ErrorApiResponse $error
      *

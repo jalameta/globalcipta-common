@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Log Eloquent Model
+ * Log Eloquent Model.
  *
  * @author      veelasky <veelasky@gmail.com>
  */
@@ -31,7 +31,7 @@ class LogModel extends Model
         'message',
         'level',
         'context',
-        'extra'
+        'extra',
     ];
 
     /**
@@ -41,6 +41,6 @@ class LogModel extends Model
      */
     protected $casts = [
         'context' => 'array',
-        'extra' => 'array'
+        'extra' => 'array',
     ];
 }
