@@ -69,6 +69,7 @@ class Item implements Jsonable, Arrayable, JsonSerializable, ArrayAccess
             'icon' => '',
             'active_class' => 'active',
             'children' => null,
+            'is_separator' => false
         ];
 
         $this->options = array_merge($default, $options);
@@ -138,6 +139,16 @@ class Item implements Jsonable, Arrayable, JsonSerializable, ArrayAccess
     public function cssClasses()
     {
         return implode(' ', $this->css_class);
+    }
+
+    /**
+     * Determine if this item is menu separator
+     *
+     * @return boolean
+     */
+    public function isSeparator()
+    {
+        return $this->options['is_separator'];
     }
 
     /**
