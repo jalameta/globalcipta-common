@@ -18,18 +18,17 @@ use Illuminate\Contracts\Support\Arrayable;
 class Item implements Jsonable, Arrayable, JsonSerializable, ArrayAccess
 {
     /**
-     * Item options.
-     *
-     * @var array
-     */
-    protected $options;
-
-    /**
      * Item children.
      *
      * @var mixed
      */
     public $children;
+    /**
+     * Item options.
+     *
+     * @var array
+     */
+    protected $options;
 
     /**
      * Render if callback.
