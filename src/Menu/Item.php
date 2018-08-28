@@ -29,7 +29,7 @@ class Item implements Jsonable, Arrayable, JsonSerializable, ArrayAccess
      *
      * @var mixed
      */
-    protected $children;
+    public $children;
 
     /**
      * Render if callback.
