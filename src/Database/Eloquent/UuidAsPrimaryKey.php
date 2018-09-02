@@ -3,6 +3,8 @@
 namespace GlobalCipta\Common\Database\Eloquent;
 
 use Webpatser\Uuid\Uuid;
+use Keiko\Uuid\Shortener\Shortener;
+use Keiko\Uuid\Shortener\Number\BigInt\Converter;
 
 /**
  * UUID as primary key in eloquent model.
@@ -19,9 +21,55 @@ trait UuidAsPrimaryKey
     public static function bootUuidAsPrimaryKey()
     {
         self::creating(function ($model) {
-            if (empty($model->{$model->getKeyName})) {
-                $model->{$model->getKeyName()} = Uuid::generate()->string;
+            /**
+             * @var $model $this
+             */
+            if (empty($model->{$model->getKeyName()})) {
+                $model->{$model->getKeyName()} = $model->generateUuid() ;
             }
         });
+    }
+
+    public function generateUuid()
+    {
+        $uuid = Uuid::generate()->string;
+
+        return ($this->isUsingShortUuid())
+            ? $this->uuidShortener()->reduce($uuid)
+            : $uuid;
+    }
+
+    /**
+     * Get the UUID shortener instance
+     *
+     * @return \Keiko\Uuid\Shortener\Shortener
+     */
+    protected function uuidShortener()
+    {
+        return new Shortener($this->table, new Converter());
+    }
+
+    /**
+     * Determine if it wants a shorter version of Uuid
+     *
+     * @return bool
+     */
+    protected function isUsingShortUuid()
+    {
+        return (property_exists($this, 'shortUuid'))
+            ? filter_var($this->shortUuid, FILTER_VALIDATE_BOOLEAN)
+            : false;
+    }
+
+    /**
+     * Get the actual RFC 4422 UUID spec value
+     *
+     * @return string
+     */
+    public function uuid()
+    {
+        return ($this->isUsingShortUuid())
+            ? $this->uuidShortener()->expand($this->{$this->getKeyName()})
+            : $this->{$this->getKeyName()};
     }
 }
