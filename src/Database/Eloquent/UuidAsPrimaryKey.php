@@ -4,6 +4,7 @@ namespace GlobalCipta\Common\Database\Eloquent;
 
 use Webpatser\Uuid\Uuid;
 use Keiko\Uuid\Shortener\Shortener;
+use Keiko\Uuid\Shortener\Dictionary;
 use Keiko\Uuid\Shortener\Number\BigInt\Converter;
 
 /**
@@ -30,6 +31,12 @@ trait UuidAsPrimaryKey
         });
     }
 
+    /**
+     * Generate Uuid
+     *
+     * @return string
+     * @throws \Exception
+     */
     public function generateUuid()
     {
         $uuid = Uuid::generate()->string;
@@ -46,7 +53,7 @@ trait UuidAsPrimaryKey
      */
     protected function uuidShortener()
     {
-        return new Shortener($this->table, new Converter());
+        return new Shortener(Dictionary::createUnmistakable(), new Converter());
     }
 
     /**
