@@ -66,7 +66,7 @@ trait UuidAsPrimaryKey
      *
      * @return string
      */
-    public function uuid()
+    public function realUuid()
     {
         return ($this->isUsingShortUuid())
             ? $this->uuidShortener()->expand($this->{$this->getKeyName()})
