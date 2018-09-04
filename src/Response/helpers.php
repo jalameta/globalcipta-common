@@ -4,13 +4,14 @@ if (! function_exists('api')) {
     /**
      * Api response helper.
      *
-     * @param $data
+     * @param     $data
+     * @param int $httpCode
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    function api($data)
+    function api($data, $httpCode = 200)
     {
-        return response()->api($data);
+        return response()->api($data, $httpCode);
     }
 }
 

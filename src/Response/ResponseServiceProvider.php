@@ -23,21 +23,17 @@ class ResponseServiceProvider extends LaravelServiceProvider
     public function boot(ResponseFactory $factory)
     {
         $factory->macro('errorApi', function (ErrorApiResponse $error) use ($factory) {
-            return $factory->make([
+            return $factory->json([
                 'error' => $error->toArray(),
-            ], $error->getHttpStatus(), [
-                'Content-Type' => 'application/json',
-            ]);
+            ], $error->getHttpStatus());
         });
 
-        $factory->macro('api', function ($data) use ($factory) {
+        $factory->macro('api', function ($data, $httpCode = 200) use ($factory) {
             if ($data instanceof Arrayable) {
                 $data = $data->toArray();
             }
 
-            return $factory->make($data, 200, [
-                'Content-Type' => 'application/json',
-            ]);
+            return $factory->json($data, $httpCode);
         });
 
         require_once __DIR__.'/helpers.php';
