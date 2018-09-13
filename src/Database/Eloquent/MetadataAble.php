@@ -30,15 +30,19 @@ trait MetadataAble
      */
     public function savingMetadataAttributes()
     {
-        $default_excluded = ['_token'];
+        if (property_exists($this, 'metadataAttributes') && count($this->metadataAttributes) > 0 )
+        {
+            $properties = request()->only($this->metadataAttributes);
 
-        if (property_exists($this, 'metadataIgnore') && count($this->metadataIgnore) > 0) {
+        } else if (property_exists($this, 'metadataIgnore') && count($this->metadataIgnore) > 0) {
+            $default_excluded = ['_token'];
             array_push($default_excluded, ...$this->metadataIgnore);
+
+            $properties = request()->except(array_merge(array_keys($this->attributes), $default_excluded));
         }
 
-        $properties = request()->except(array_merge(array_keys($this->attributes), $default_excluded));
 
-        if ($this->hasMetadata()) {
+        if ($this->hasMetadata() AND count($properties) > 0) {
             foreach ($properties as $key => $property) {
                 $type = 'string';
 
@@ -150,6 +154,7 @@ trait MetadataAble
 
         return $attributes;
     }
+
     /**
      * The "booting" method of the model.
      */
