@@ -23,16 +23,16 @@ trait UuidAsPrimaryKey
     {
         self::creating(function ($model) {
             /**
-             * @var $model $this
+             * @var $this
              */
             if (empty($model->{$model->getKeyName()})) {
-                $model->{$model->getKeyName()} = $model->generateUuid() ;
+                $model->{$model->getKeyName()} = $model->generateUuid();
             }
         });
     }
 
     /**
-     * Generate Uuid
+     * Generate Uuid.
      *
      * @return string
      * @throws \Exception
@@ -47,7 +47,19 @@ trait UuidAsPrimaryKey
     }
 
     /**
-     * Get the UUID shortener instance
+     * Get the actual RFC 4422 UUID spec value.
+     *
+     * @return string
+     */
+    public function realUuid()
+    {
+        return ($this->isUsingShortUuid())
+            ? $this->uuidShortener()->expand($this->{$this->getKeyName()})
+            : $this->{$this->getKeyName()};
+    }
+
+    /**
+     * Get the UUID shortener instance.
      *
      * @return \Keiko\Uuid\Shortener\Shortener
      */
@@ -57,7 +69,7 @@ trait UuidAsPrimaryKey
     }
 
     /**
-     * Determine if it wants a shorter version of Uuid
+     * Determine if it wants a shorter version of Uuid.
      *
      * @return bool
      */
@@ -66,17 +78,5 @@ trait UuidAsPrimaryKey
         return (property_exists($this, 'shortUuid'))
             ? filter_var($this->shortUuid, FILTER_VALIDATE_BOOLEAN)
             : false;
-    }
-
-    /**
-     * Get the actual RFC 4422 UUID spec value
-     *
-     * @return string
-     */
-    public function realUuid()
-    {
-        return ($this->isUsingShortUuid())
-            ? $this->uuidShortener()->expand($this->{$this->getKeyName()})
-            : $this->{$this->getKeyName()};
     }
 }

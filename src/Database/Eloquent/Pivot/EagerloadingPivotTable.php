@@ -3,7 +3,7 @@
 namespace GlobalCipta\Common\Database\Eloquent\Pivot;
 
 /**
- * EagerLoadingPivotTable
+ * EagerLoadingPivotTable.
  *
  * @author      veelasky <veelasky@gmail.com>
  */

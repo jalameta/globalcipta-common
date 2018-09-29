@@ -30,11 +30,9 @@ trait MetadataAble
      */
     public function savingMetadataAttributes()
     {
-        if (property_exists($this, 'metadataAttributes') && count($this->metadataAttributes) > 0 )
-        {
+        if (property_exists($this, 'metadataAttributes') && count($this->metadataAttributes) > 0) {
             $properties = request()->only($this->metadataAttributes);
-
-        } else if (property_exists($this, 'metadataIgnore') && count($this->metadataIgnore) > 0) {
+        } elseif (property_exists($this, 'metadataIgnore') && count($this->metadataIgnore) > 0) {
             $default_excluded = ['_token'];
             array_push($default_excluded, ...$this->metadataIgnore);
 
@@ -42,7 +40,7 @@ trait MetadataAble
         }
 
 
-        if ($this->hasMetadata() AND count($properties) > 0) {
+        if ($this->hasMetadata() and count($properties) > 0) {
             foreach ($properties as $key => $property) {
                 $type = 'string';
 

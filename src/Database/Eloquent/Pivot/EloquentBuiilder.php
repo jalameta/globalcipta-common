@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * Custom Eloquent query builder
+ * Custom Eloquent query builder.
  *
  * @author      veelasky <veelasky@gmail.com>
  */
