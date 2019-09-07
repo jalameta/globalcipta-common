@@ -75,9 +75,9 @@ class Container extends Collection
      * @param string $text
      * @param array $options
      *
-     * @return \GlobalCipta\Common\Menu\Item
+     * @return Item
      */
-    public function add($uri, $text, $options = [])
+    public function add($uri, $text = '', $options = []): Item
     {
         $item = new Item(array_merge(['uri' => $uri, 'text' => $text], $options));
 
@@ -92,9 +92,9 @@ class Container extends Collection
      * @param int $order
      * @param string $text
      *
-     * @return \GlobalCipta\Common\Menu\Item
+     * @return Item
      */
-    public function addSeparator($order, $text = null)
+    public function addSeparator($order, $text = null): Item
     {
         $item = new Item([
             'is_separator' => true,
@@ -112,7 +112,7 @@ class Container extends Collection
      *
      * @return string
      */
-    public function cssClasses()
+    public function cssClasses(): string
     {
         return implode(' ', $this->css_class);
     }
@@ -123,7 +123,7 @@ class Container extends Collection
      * @param string $view
      * @return string
      */
-    public function render($view = null)
+    public function render($view = null): string
     {
         return new HtmlString(view()->make($view ?: $this->view, [
             'menu' => $this,

@@ -25,11 +25,11 @@ class Factory
      * @param array $options
      * @param array $items
      *
-     * @return \GlobalCipta\Common\Menu\Container
+     * @return Container
      */
     public function make($key, array $options = [], array $items = [])
     {
-        if (array_key_exists($key, $this->menu) == false) {
+        if (array_key_exists($key, $this->menu) === false) {
             $this->menu[$key] = new Container($items, $options);
         } else {
             throw new RuntimeException("Menu with key: `$key` already exist.");
@@ -43,9 +43,9 @@ class Factory
      *
      * @param $key
      *
-     * @return \GlobalCipta\Common\Menu\Container
+     * @return Container
      */
-    public function get($key)
+    public function get($key): Container
     {
         if (array_key_exists($key, $this->menu)) {
             return $this->menu[$key];

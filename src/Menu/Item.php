@@ -33,21 +33,21 @@ class Item implements Jsonable, Arrayable, JsonSerializable, ArrayAccess
     /**
      * Render if callback.
      *
-     * @var \Closure
+     * @var Closure
      */
     protected $renderableResolver;
 
     /**
      * Active state resolver.
      *
-     * @var \Closure
+     * @var Closure
      */
     protected $activeStateResolver;
 
     /**
      * Badge counter resolver.
      *
-     * @var \Closure
+     * @var Closure
      */
     protected $badgeContentResolver;
 
@@ -95,9 +95,9 @@ class Item implements Jsonable, Arrayable, JsonSerializable, ArrayAccess
      *
      * @return bool
      */
-    public function hasBadge()
+    public function hasBadge(): bool
     {
-        return (filter_var($this->badge, FILTER_VALIDATE_BOOLEAN));
+        return filter_var($this->badge, FILTER_VALIDATE_BOOLEAN);
     }
 
     /**
@@ -105,7 +105,7 @@ class Item implements Jsonable, Arrayable, JsonSerializable, ArrayAccess
      *
      * @return bool
      */
-    public function active()
+    public function active(): bool
     {
         if ($this->activeStateResolver instanceof Closure) {
             $result = call_user_func($this->activeStateResolver);
@@ -135,7 +135,7 @@ class Item implements Jsonable, Arrayable, JsonSerializable, ArrayAccess
      *
      * @return string
      */
-    public function cssClasses()
+    public function cssClasses(): string
     {
         return implode(' ', $this->css_class);
     }
@@ -145,7 +145,7 @@ class Item implements Jsonable, Arrayable, JsonSerializable, ArrayAccess
      *
      * @return bool
      */
-    public function isSeparator()
+    public function isSeparator(): bool
     {
         return $this->options['is_separator'];
     }
@@ -155,7 +155,7 @@ class Item implements Jsonable, Arrayable, JsonSerializable, ArrayAccess
      *
      * @return bool
      */
-    public function renderable()
+    public function renderable(): bool
     {
         // determine if this item is available for rendering
         if ($this->renderableResolver instanceof Closure) {
@@ -170,10 +170,10 @@ class Item implements Jsonable, Arrayable, JsonSerializable, ArrayAccess
     /**
      * Renderable resolver.
      *
-     * @param \Closure $callback
+     * @param Closure $callback
      * @return $this
      */
-    public function renderableResolver(Closure $callback)
+    public function renderableResolver(Closure $callback): self
     {
         $this->renderableResolver = $callback;
 
@@ -183,10 +183,10 @@ class Item implements Jsonable, Arrayable, JsonSerializable, ArrayAccess
     /**
      * Active state resolver callback.
      *
-     * @param \Closure $callback
+     * @param Closure $callback
      * @return $this
      */
-    public function activeStateResolver(Closure $callback)
+    public function activeStateResolver(Closure $callback): self
     {
         $this->activeStateResolver = $callback;
 
@@ -196,10 +196,10 @@ class Item implements Jsonable, Arrayable, JsonSerializable, ArrayAccess
     /**
      * Badge content resolver.
      *
-     * @param \Closure $callback
+     * @param Closure $callback
      * @return $this
      */
-    public function badgeContentResolver(Closure $callback)
+    public function badgeContentResolver(Closure $callback): self
     {
         $this->badgeContentResolver = $callback;
 
@@ -215,7 +215,7 @@ class Item implements Jsonable, Arrayable, JsonSerializable, ArrayAccess
      */
     public function addChild($uri, $text, $options = [])
     {
-        if ($this->children instanceof Container == false) {
+        if ($this->children instanceof Container === false) {
             $this->children = new Container();
         }
 
@@ -230,7 +230,7 @@ class Item implements Jsonable, Arrayable, JsonSerializable, ArrayAccess
      *
      * @return bool
      */
-    public function hasChildren()
+    public function hasChildren(): bool
     {
         return ($this->children instanceof Container and $this->children->count() > 0);
     }
@@ -261,7 +261,7 @@ class Item implements Jsonable, Arrayable, JsonSerializable, ArrayAccess
      * @param  int  $options
      * @return string
      */
-    public function toJson($options = 0)
+    public function toJson($options = 0): string
     {
         return json_encode($this->jsonSerialize(), $options);
     }
@@ -271,7 +271,7 @@ class Item implements Jsonable, Arrayable, JsonSerializable, ArrayAccess
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->options;
     }
@@ -283,7 +283,7 @@ class Item implements Jsonable, Arrayable, JsonSerializable, ArrayAccess
      *
      * @return bool
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return array_key_exists($offset, $this->options);
     }
@@ -308,7 +308,7 @@ class Item implements Jsonable, Arrayable, JsonSerializable, ArrayAccess
      *
      * @return void
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         $this->options[$offset] = $value;
     }
@@ -319,7 +319,7 @@ class Item implements Jsonable, Arrayable, JsonSerializable, ArrayAccess
      * @param mixed $offset
      * @return void
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->options[$offset]);
     }

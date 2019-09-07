@@ -16,7 +16,7 @@ class MenuServiceProvider extends LaravelServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->loadViewsFrom(__DIR__.'/resources/views', 'common-menu');
     }
@@ -26,12 +26,10 @@ class MenuServiceProvider extends LaravelServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->app->singleton('common.menu', function () {
-            $factory = new Factory();
-
-            return $factory;
+            return new Factory();
         });
 
         $this->app->alias('common.menu', Factory::class);
